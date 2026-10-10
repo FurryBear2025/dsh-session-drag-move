@@ -1,7 +1,7 @@
 {
   "name": "dsh-session-drag-move",
-  "version": "0.1.0",
-  "description": "左侧栏工作区：把会话拖到别的工作区，真正改变归属（改写会话日志 header 的 cwd 并迁移会话目录）。Drag a session onto another workspace in the DSH sidebar and it really moves: the session log header's cwd is rewritten and the log is re-homed under the target project.",
+  "version": "0.1.2",
+  "description": "DSH 左侧栏会话跨工作区拖拽：把会话拖到别的工作区，真正改写会话日志 header 的 cwd 并把日志目录迁到目标项目下，改变归属而不只是改名。Drag a session onto another workspace in the DSH sidebar and it really moves: the session-log header cwd is rewritten and the log is re-homed under the target project.",
   "type": "module",
   "main": "lib/index.js",
   "exports": {
