@@ -1,0 +1,13 @@
+1065	dsh/node_modules/@deepseek-ai/dsh-workspace/LICENSE
+3509	dsh/node_modules/@deepseek-ai/dsh-workspace/README.i18n.yaml
+16420	dsh/node_modules/@deepseek-ai/dsh-workspace/README.md
+15011	dsh/node_modules/@deepseek-ai/dsh-workspace/README.zh.md
+38838	dsh/node_modules/@deepseek-ai/dsh-workspace/lib/index.js
+4621	dsh/node_modules/@deepseek-ai/dsh-workspace/lib/invariant.js
+7022	dsh/node_modules/@deepseek-ai/dsh-workspace/lib/types/entity.js
+35330	dsh/node_modules/@deepseek-ai/dsh-workspace/lib/types/index.js
+2158	dsh/node_modules/@deepseek-ai/dsh-workspace/lib/types/invariant.js
+2246	dsh/node_modules/@deepseek-ai/dsh-workspace/lib/types/paths.js
+3262	dsh/node_modules/@deepseek-ai/dsh-workspace/lib/types/spec.js
+319	dsh/node_modules/@deepseek-ai/dsh-workspace/lib/types/types.js
+1898	dsh/node_modules/@deepseek-ai/dsh-workspace/package.json

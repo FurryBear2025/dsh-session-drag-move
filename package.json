@@ -1,0 +1,50 @@
+{
+  "name": "dsh-session-drag-move",
+  "version": "0.1.0",
+  "description": "左侧栏工作区：把会话拖到别的工作区，真正改变归属（改写会话日志 header 的 cwd 并迁移会话目录）。Drag a session onto another workspace in the DSH sidebar and it really moves: the session log header's cwd is rewritten and the log is re-homed under the target project.",
+  "type": "module",
+  "main": "lib/index.js",
+  "exports": {
+    ".": "./lib/index.js",
+    "./client": "./lib/client.js",
+    "./package.json": "./package.json"
+  },
+  "engines": {
+    "node": ">=22",
+    "dsh": ">=0.1.6-alpha.2"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "platform": "web"
+    }
+  },
+  "files": [
+    "lib/index.js",
+    "lib/client.js",
+    "lib/session-log.js",
+    "lib/fork-tree.js",
+    "cordis.patch.yml",
+    "README.md"
+  ],
+  "keywords": [
+    "dsh",
+    "deepseek-harness",
+    "dsh-plugin",
+    "sidebar",
+    "workspace",
+    "session",
+    "drag-and-drop"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FurryBear2025/dsh-session-drag-move.git"
+  },
+  "homepage": "https://github.com/FurryBear2025/dsh-session-drag-move#readme",
+  "bugs": {
+    "url": "https://github.com/FurryBear2025/dsh-session-drag-move/issues"
+  }
+}

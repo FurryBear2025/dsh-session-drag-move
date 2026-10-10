@@ -1,0 +1,26 @@
+# Dependencies
+node_modules/
+
+# Published tarballs
+*.tgz
+
+# npm auth (never commit credentials)
+.npmrc
+
+# Debug / scratch dumps and ad-hoc extraction output under tools/
+tools/a.txt
+tools/a.err
+tools/a.txt
+tools/out.txt
+tools/ws-files.txt
+tools/*.tgz
+
+# Asar / registry inspection scratch files (tools/_*.{txt,md,js,json})
+tools/_*.txt
+tools/_*.md
+tools/_*.js
+tools/_*.json
+
+# Editor / OS
+.DS_Store
+*.log
