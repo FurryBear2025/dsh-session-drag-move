@@ -26,8 +26,8 @@ if (TOKEN === '') {
 }
 
 /** Paths (repo-relative, posix) that must NOT be published. */
-const EXCLUDE_DIRS = ['reference', 'node_modules', 'tools/reference']
-const EXCLUDE_SCRATCH = /^tools\/.*\.(txt|err)$/i
+const EXCLUDE_DIRS = ['reference', 'node_modules']
+const EXCLUDE_SCRATCH = /(^|\/)tools\/(_[^/]*|.*\.(txt|err))$/i
 const EXCLUDE_NAMES = new Set(['STATUS.md'])
 
 function shouldSkip(rel) {
@@ -54,23 +54,40 @@ function walk(dir, out = []) {
 }
 
 async function api(method, path, body) {
-  const res = await fetch(`https://api.github.com${path}`, {
-    method,
-    headers: {
-      'user-agent': 'dsh-publish',
-      accept: 'application/vnd.github+json',
-      authorization: `Bearer ${TOKEN}`,
-      ...(body === undefined ? {} : { 'content-type': 'application/json' })
-    },
-    body: body === undefined ? undefined : JSON.stringify(body)
-  })
-  const text = await res.text()
-  let json
-  try { json = JSON.parse(text) } catch { json = text }
-  if (!res.ok) {
-    throw new Error(`${method} ${path} -> ${res.status}: ${typeof json === 'string' ? json : JSON.stringify(json).slice(0, 400)}`)
+  const payload = body === undefined ? undefined : JSON.stringify(body)
+  let lastError
+  for (let attempt = 1; attempt <= 5; attempt++) {
+    try {
+      const res = await fetch(`https://api.github.com${path}`, {
+        method,
+        headers: {
+          'user-agent': 'dsh-publish',
+          accept: 'application/vnd.github+json',
+          authorization: `Bearer ${TOKEN}`,
+          ...(payload === undefined ? {} : { 'content-type': 'application/json' })
+        },
+        body: payload
+      })
+      const text = await res.text()
+      let json
+      try { json = JSON.parse(text) } catch { json = text }
+      // 5xx and secondary-rate-limit 403s are worth retrying; 4xx are not.
+      if (res.status >= 500 || (res.status === 403 && /rate limit/i.test(text))) {
+        lastError = new Error(`${method} ${path} -> ${res.status}: ${typeof json === 'string' ? json : JSON.stringify(json).slice(0, 300)}`)
+        await new Promise((r) => setTimeout(r, attempt * 1500))
+        continue
+      }
+      if (!res.ok) {
+        throw new Error(`${method} ${path} -> ${res.status}: ${typeof json === 'string' ? json : JSON.stringify(json).slice(0, 400)}`)
+      }
+      return json
+    } catch (error) {
+      if (error instanceof Error && error.message.includes('-> 4')) throw error
+      lastError = error
+      await new Promise((r) => setTimeout(r, attempt * 1500))
+    }
   }
-  return json
+  throw lastError
 }
 
 const files = walk(ROOT)
