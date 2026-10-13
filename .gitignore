@@ -21,6 +21,13 @@ tools/_*.md
 tools/_*.js
 tools/_*.json
 
+# Local reverse-engineering notes: extracted copies of DSH's own bundle for
+# contract research. Not part of this plugin and not redistributed.
+reference/
+
+# Scratch notes
+STATUS.md
+
 # Editor / OS
 .DS_Store
 *.log
